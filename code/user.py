@@ -8,7 +8,7 @@ class User(object):
     
 
 # This function accepts the username and find the row with the username value
-  @classmethod
+    @classmethod
     def find_by_username(cls,username):
         connection = sqlite3.connect('data.db')
         cursor = connection.cursor()
