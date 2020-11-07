@@ -1,5 +1,10 @@
 #!/bin/bash
 
+DATABASE="data.db"
+if [ -f $DATABASE ]
+then
+    rm -rf $DATABASE
+fi
 export FLASK_APP=main.py
 export FLASK_ENV=development
 
