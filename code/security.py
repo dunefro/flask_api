@@ -3,6 +3,7 @@ from user import User
 def authenticate(username,password):
 
     user = User.find_by_username(username)
+    print(user)
     if user and user.password == password:
         return user
 

@@ -2,7 +2,8 @@ from flask import Flask , request
 from flask_restful import Resource, Api , reqparse
 from flask_jwt import JWT , jwt_required
 from security import authenticate, identity
-
+import sql_helper
+from user import UserRegister
 app = Flask(__name__)
 api = Api(app)
 app.secret_key = 'abcd'
@@ -70,8 +71,11 @@ class ItemList(Resource):
     def get(self):
         return { 'items': items}
 
+sql_helper.create_table()
 api.add_resource(Item , '/item/<string:name>')
 api.add_resource(ItemList , '/items')
-
-if __name__ == '__main__':
-    app.run()
+api.add_resource(UserRegister,'/register')
+# if __name__ == '__main__':
+#     print('Lets see \n\n\n\n\n ')
+#     sql_helper.create_table()
+#     app.run()

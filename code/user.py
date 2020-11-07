@@ -1,13 +1,16 @@
 import sqlite3
+import sql_helper
+from flask_restful import Resource , reqparse
+from flask import request
 
 class User(object):
+
     def __init__(self, _id, username, password):
         self.id = _id
         self.username = username
         self.password = password
     
-
-# This function accepts the username and find the row with the username value
+    # This function accepts the username and find the row with the username value
     @classmethod
     def find_by_username(cls,username):
         connection = sqlite3.connect('data.db')
@@ -41,3 +44,16 @@ class User(object):
 
         connection.close()
         return user
+
+class UserRegister(Resource):
+
+    def post(self):
+        
+        if request.is_json:
+            data =  request.get_json()
+            username = data['username']
+            password = data['password']
+            sql_helper.create_user(username , password)
+            return {'Message': 'User create successfully'},201
+        else:
+            return {'Message': 'Request was not of type JSON'},400
