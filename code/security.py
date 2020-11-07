@@ -1,8 +1,4 @@
 from user import User
-users = [User(1,"admin","adminpass"),User(2,"dev","devpass")]
-
-username_mapping = {user.username: user for user in users}
-userid_mapping = {user.id: user for user in users}
 
 def authenticate(username,password):
 
