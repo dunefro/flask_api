@@ -54,6 +54,8 @@ class UserRegister(Resource):
         if request.is_json:
             data = UserRegister.parser.parse_args() #request.get_json()
             username = data['username']
+            if sql_helper.check_for_user(username):
+                return {'Message': 'User with username [{}] Already exists'.format(username)},400
             password = data['password']
             sql_helper.create_user(username , password)
             return {'Message': 'User create successfully'},201

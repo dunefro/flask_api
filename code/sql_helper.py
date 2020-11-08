@@ -22,3 +22,12 @@ def create_user(username,password):
     add_user = "INSERT INTO users VALUES (NULL , ? , ?)"
     cursor.execute(add_user ,(username, password,))
     _end_connection(connection)
+
+def check_for_user(username):
+    connection , cursor = _create_connection()
+    check_user = "SELECT * FROM users WHERE username=?"
+    result = cursor.execute(check_user,(username,))
+    row = result.fetchone()
+    if row:
+        return True
+    return False
