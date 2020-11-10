@@ -74,13 +74,21 @@ def get_all_items():
     except:
         return None
 
+def update_item(item):
+    try:
+        connection , cursor = _create_connection()
+        delete_item = "UPDATE items SET price=? WHERE name=?"
+        cursor.execute(delete_item,(item['price'],item['name']))
+        _end_connection(connection)
+        return True
+    except:
+        return False
 def delete_item(name):
     try:
         connection , cursor = _create_connection()
-        print('Item name is {}'.format(name))
         delete_item = "DELETE FROM items WHERE name=?"
         cursor.execute(delete_item , (name,))
-        _end_connection()
+        _end_connection(connection)
         return True
     except:
         return False

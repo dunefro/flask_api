@@ -46,19 +46,19 @@ class Item(Resource):
         
         if request.is_json:
             data = Item.parser.parse_args()
-            
         else:
             return {'Message': 'Required type is JSON'}
-        
-        item = next(filter(lambda x: x['name'] == name,items),None)
-        print('This is the value of mem location of ITEM {}',format(hex(id(item))))
-        print('This is the value of mem location of ITEMS {} '.format(hex(id(items[0]))))
-        if item:
-            item.update(data)
+        item = {'name': name , 'price': data['price']}
+        if sql_helper.check_for_item(name):
+            if sql_helper.update_item(item):
+                return item,201
+            else:
+                {'Message': 'Item with the following name [{}] can\'t be updated'.format(name)},500
         else:
-            data = {'name': name, 'price': data['price']}
-            items.append(data)
-        return item if item else data, 200 if item else 201 
+            if sql_helper.create_item(item['name'],item['price']):
+                return {'name': item['name'], 'price': item['price']}, 201
+            else:
+                return {'Message': 'Item with the following name [{}] can\'t be created'.format(name)},500
 
 class ItemList(Resource):
     def get(self):
