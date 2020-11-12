@@ -1,3 +1,4 @@
 myenv/
 data.db
 __pycache__/
+test.py

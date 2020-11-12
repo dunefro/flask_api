@@ -1,21 +1,10 @@
-class Counter:
+def func1():
+    a = [1,2,3,4]
+    return *a
 
-    counter = 0
+b ,c ,d ,e = func1()
 
-    def __init__(self,x):
-        self.x = x
-        Counter.counter +=1
-    @classmethod
-    def class_method(cls,x):
-
-        cls(x)
-        print('Value of counter is: {}'.format(cls.counter))
-        print('Here I am calling cls')
-        return None
-
-Counter(1)
-Counter(2)
-Counter.class_method(3)
-Counter.class_method(4)
-Counter.class_method(3)
-Counter.class_method(3)
+print(b)
+print(c)
+print(d)
+print(e)
