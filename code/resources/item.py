@@ -1,7 +1,8 @@
 from flask_restful import Resource , reqparse
 from flask_jwt import jwt_required
-import sql_helper
+from models import sql_helper
 from flask import request
+
 class Item(Resource):
     
     parser = reqparse.RequestParser()

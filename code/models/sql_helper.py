@@ -20,20 +20,28 @@ def create_table():
     _end_connection(connection)
 
 def create_user(username,password):
+    print('Username -> {} and password {}'.format(username,password))
     connection , cursor = _create_connection()
     add_user = "INSERT INTO users VALUES (NULL , ? , ?)"
     cursor.execute(add_user ,(username, password,))
     _end_connection(connection)
 
 def check_for_user(username):
+    print('Username --------> {}'.format(username))
     connection , cursor = _create_connection()
     check_user = "SELECT * FROM users WHERE username=?"
     result = cursor.execute(check_user,(username,))
     row = result.fetchone()
     _end_connection(connection)
-    if row:
-        return True
-    return False
+    return row
+
+def check_for_id(user_id):
+    connection , cursor = _create_connection()
+    check_user = "SELECT * FROM users WHERE id=?"
+    result = cursor.execute(check_user,(user_id,))
+    row = result.fetchone()
+    _end_connection(connection)
+    return row
 
 def check_for_item(name):
     connection , cursor = _create_connection()
