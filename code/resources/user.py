@@ -11,7 +11,6 @@ class UserRegister(Resource):
 
     def post(self):    
         if request.is_json:
-            print('I start from here')
             data = UserRegister.parser.parse_args() #request.get_json()
             username = data['username']
             if sql_helper.check_for_user(username):

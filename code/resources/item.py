@@ -63,5 +63,4 @@ class Item(Resource):
 
 class ItemList(Resource):
     def get(self):
-        print('It reaches here')
         return sql_helper.get_all_items()

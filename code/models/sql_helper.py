@@ -75,9 +75,6 @@ def get_all_items():
                 items.append({'name': item[0],'price': item[1]})
             else:
                 break
-        # items = [{'name': item[0]}]
-        # for item in result:
-            # items.append({'name': item[0],'price': item[1]})
         return {'items': items}
     except:
         return None
