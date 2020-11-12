@@ -18,7 +18,7 @@ class Item(Resource):
         item = sql_helper.check_for_item(name)
         if item:
             return {'name': item[0] , 'price': item[1]} , 200        
-        return {'Message': 'Item with the following name [{}] exists'.format(name)} , 400
+        return {'Message': 'Item with the following name doesn\'t [{}] exists'.format(name)} , 400
     
     def post(self,name):
 
