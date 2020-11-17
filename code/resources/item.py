@@ -3,12 +3,18 @@ from flask_jwt import jwt_required
 from models import sql_helper
 from flask import request
 from models.item import ItemModel
+from models.store import StoreModel
 
 class Item(Resource):
     
     parser = reqparse.RequestParser()
     parser.add_argument('price',
             type=float,
+            required=True,
+            help='This field cannot be blank!'
+    )
+    parser.add_argument('store_id',
+            type=int,
             required=True,
             help='This field cannot be blank!'
     )
@@ -28,7 +34,9 @@ class Item(Resource):
             if item:
                 return {'Message': 'Item with the following name [{}] exists'.format(name)} , 400
             data = Item.parser.parse_args()
-            item = ItemModel(name , data['price'])
+            if not StoreModel.find_by_id(data['store_id']):
+                return {'Message': 'Store with the following ID [{}] doesn\'t exists'.format(data['store_id'])}
+            item = ItemModel(name , **data)
             item.save_to_db()
             return item.json() , 201
         else:
@@ -52,7 +60,7 @@ class Item(Resource):
         if item:
             item.price = data['price']
         else:
-            item = ItemModel(name , data['price'])
+            item = ItemModel(name , **data)
         item.save_to_db()
         return item.json()
 
