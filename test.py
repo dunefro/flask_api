@@ -1,10 +1,30 @@
-def func1():
-    a = [1,2,3,4]
-    return *a
+import sqlite3
 
-b ,c ,d ,e = func1()
+connection =  sqlite3.connect('data.db')
 
-print(b)
-print(c)
-print(d)
-print(e)
+cursor = connection.cursor()
+
+create_table = "CREATE TABLE users (id int , username text, password text)"
+
+cursor.execute(create_table)
+
+user = (1, 'vedant' , 'password')
+
+insert_query = "INSERT INTO users VALUES (? , ? , ?)"
+cursor.execute(insert_query , user)
+
+user_list = [
+    (2 , 'dune' , 'fro'),
+    (3, 'api' , 'flask')
+] 
+
+cursor.executemany(insert_query , user_list)
+
+select_query = "SELECT * FROM users"
+
+for row in cursor.execute(select_query):
+    print(row)
+
+connection.commit()
+
+connection.close()
