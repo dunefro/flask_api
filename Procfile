@@ -1,1 +1,1 @@
-web: cd code/ && uwsgi uwsgi.ini
+web: uwsgi uwsgi.ini
