@@ -68,6 +68,7 @@ Twisted==17.9.0
 ufw==0.36
 unattended-upgrades==0.1
 urllib3==1.25.11
+uWSGI==2.0.19.1
 virtualenv==20.1.0
 Werkzeug==1.0.1
 xmltodict==0.12.0
